@@ -103,53 +103,90 @@
             <!-- AYAH LIST (ONLY THIS SCROLLS) -->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding FilteredAyat}">
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="10"
-                            Padding="14"
-                            CornerRadius="6"
-                            BorderBrush="#E0E0E0"
-                            BorderThickness="1">
-                                <StackPanel>
-                                    <!-- Ayah header -->
-                                    <TextBlock Text="{Binding AyahHeader}"
-                                       FontSize="12"
-                                       Opacity="0.65"
-                                       Margin="0,0,0,8"/>
+        Padding="14"
+        CornerRadius="6"
+        BorderBrush="#E0E0E0"
+        BorderThickness="1"
+        HorizontalAlignment="Stretch"
+        FlowDirection="LeftToRight">
 
-                                    <!-- Arabic -->
-                                    <TextBlock FontFamily="pack://application:,,,/Assets/Fonts/#Amiri"
-                                       Text="{Binding Data.QuranText}"
-                                       FontSize="28"
-                                       TextAlignment="Right"
-                                       FlowDirection="RightToLeft"
-                                       TextWrapping="Wrap" />
+                                <Grid HorizontalAlignment="Stretch">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Ayah header -->
+                                    <TextBlock Grid.Row="0"
+               Text="{Binding AyahHeader}"
+               FontSize="12"
+               Opacity="0.65"
+               Margin="0,0,0,8"/>
+
+                                    <!-- Arabic (RTL island, card remains LTR) -->
+                                    <Border Grid.Row="1"
+        HorizontalAlignment="Stretch">
+                                        <TextBlock Text="{Binding Data.QuranText}"
+               Language="ar-SA"
+               FontFamily="pack://application:,,,/Assets/Fonts/#Amiri"
+               FontSize="28"
+               TextWrapping="Wrap"
+               FlowDirection="RightToLeft"
+               TextAlignment="Right"
+               HorizontalAlignment="Right"
+               MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
+               Margin="0,0,0,8"/>
+                                    </Border>
 
                                     <!-- Maranao translation -->
-                                    <TextBlock Margin="0,10,0,0"
-                                       Text="{Binding Data.MaranaoTranslation}"
-                                       FontSize="16"
-                                       TextWrapping="Wrap" />
 
-                                    <!-- Tafsir toggle button -->
-                                    <Button Margin="0,10,0,0"
-                                    Width="90"
-                                    HorizontalAlignment="Left"
-                                    Content="{Binding TafsirButtonText}"
-                                    Command="{Binding DataContext.ToggleTafsirCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                    CommandParameter="{Binding}" />
+                                    <TextBlock Grid.Row="2"
+           FlowDirection="LeftToRight"
+           TextAlignment="Left"
+           Text="{Binding Data.MaranaoTranslation}"
+           FontSize="16"
+           TextWrapping="Wrap"
+           Margin="0,10,0,0"/>
+
+                                    <!-- Tafsir toggle -->
+                                    <Button Grid.Row="3"
+            Margin="0,10,0,0"
+            Width="90"
+            HorizontalAlignment="Left"
+			FlowDirection="LeftToRight"
+            Content="{Binding TafsirButtonText}"
+            Command="{Binding DataContext.ToggleTafsirCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+            CommandParameter="{Binding}" />
 
                                     <!-- Tafsir panel -->
-                                    <Border Margin="0,8,0,0"
-                                    Padding="10"
-                                    BorderBrush="#F0F0F0"
-                                    BorderThickness="1"
-                                    Visibility="{Binding IsTafsirVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <Border Grid.Row="4"
+            Margin="0,8,0,0"
+            Padding="10"
+            BorderBrush="#F0F0F0"
+            BorderThickness="1"
+            Visibility="{Binding IsTafsirVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                                         <TextBlock Text="{Binding Data.TafsirTextOriginal}"
-                                           TextWrapping="Wrap"
-                                           FontSize="14"/>
+                   TextWrapping="Wrap"
+                   FontSize="14"/>
                                     </Border>
-                                </StackPanel>
+                                </Grid>
+
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
