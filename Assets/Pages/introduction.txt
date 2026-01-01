@@ -1,0 +1,30 @@
+The Maranao Qur’an Viewer is a desktop application designed to make the Holy Qur’an
+accessible to Maranao-speaking Muslims through accurate translation and Tafsir,
+while preserving the integrity of the original Arabic text.
+
+This application traces its roots to an early Qur’an Viewer developed in 2002 by
+the late Jamal Al-Nasir (London), which supported multiple Qur’an translations,
+including Maranao. That pioneering work marked the first known digital Qur’an
+application to include the Maranao language.
+
+This Version 3.0 is a modern continuation of that legacy.
+
+It presents the Qur’an in a clear, structured format:
+• Arabic text rendered with proper right-to-left alignment
+• Maranao translation placed directly beneath each verse
+• Tafsir displayed on demand, verse by verse, to support deeper understanding
+
+The Qur’an Viewer is designed for:
+• Personal reading and reflection
+• Study circles and teaching
+• Preservation of the Maranao language in Islamic scholarship
+
+Great care has been taken to ensure clarity, readability, and respect for the
+Sacred Text. No interpretation replaces the Qur’an itself; Tafsir is provided
+only as guidance, explanation, and contextual understanding.
+
+This software is offered as a service to the Ummah, with the hope that it will
+contribute to learning, reflection, and transmission of knowledge to future
+generations — especially among Maranao Muslims.
+
+May Allah accept this effort and make it beneficial.

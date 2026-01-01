@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Data\quran_tafsir.json" />
+    <None Remove="Assets\Fonts\Amiri-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Data\quran_tafsir.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Fonts\Amiri-Regular.ttf" />
+  </ItemGroup>
+
+</Project>
