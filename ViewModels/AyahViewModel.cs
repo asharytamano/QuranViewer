@@ -6,6 +6,14 @@ namespace QuranViewer.ViewModels
 {
     public class AyahViewModel : INotifyPropertyChanged
     {
+        public int SurahNumber { get; set; }
+        public int AyahNumber { get; set; }   // 0 for Bismillah row (except Surah 9)
+        public bool IsAyah0 => AyahNumber == 0;
+
+        public bool ShowToggleVisible =>
+            AyahNumber > 0                 // hide for ayah 0
+            && (AyahNumber != 1 || SurahNumber == 1); // your existing rule: hide ayah 1 except Al-Fatihah
+
         public QuranAyah Data { get; }
 
         public string AyahHeader => $"Surah {Data.Surah} • Ayah {Data.Ayah}";

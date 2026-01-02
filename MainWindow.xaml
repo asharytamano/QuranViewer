@@ -12,6 +12,31 @@
 
 
     <Window.Resources>
+        <Style x:Key="LeftNavButton" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Margin" Value="0,8,0,0"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="#1F5A52"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#184842"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style x:Key="LeftNavSubButton" TargetType="Button" BasedOn="{StaticResource LeftNavButton}">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Margin" Value="0,6,0,0"/>
+            <Setter Property="Padding" Value="18,7"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="#194B45"/>
+        </Style>
+
+        <Style TargetType="Expander">
+            <Setter Property="Margin" Value="0,8,0,0"/>
+        </Style>
+
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
 
@@ -22,29 +47,130 @@
         </Grid.ColumnDefinitions>
 
         <!-- LEFT NAV -->
-        <Border Grid.Column="0" 
-                Padding="12" 
-                BorderBrush="#DDD" 
-                BorderThickness="0,0,1,0">
-            <StackPanel>
-                <TextBlock Text="Navigation" 
-                           FontWeight="SemiBold" 
-                           FontSize="18" 
-                           Margin="0,0,0,12"/>
+        <Border Grid.Column="0"
+        Padding="12"
+        BorderBrush="#DDD"
+        BorderThickness="0,0,1,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Header + Surah selector -->
+                    <RowDefinition Height="*"/>
+                    <!-- Pages menu -->
+                </Grid.RowDefinitions>
 
-                <TextBlock Text="Surah Index" 
-                           FontWeight="SemiBold" 
-                           FontSize="16" 
-                           Margin="0,0,0,6"/>
-                <ComboBox ItemsSource="{Binding SurahList}"
+                <!-- TOP: Navigation + Surah selector -->
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="Navigation"
+                       FontWeight="SemiBold"
+                       FontSize="20"
+                       Margin="0,0,0,12"/>
+
+                    <TextBlock Text="Surah Index"
+                       FontWeight="SemiBold"
+                       FontSize="18"
+                       Margin="0,0,0,6"/>
+
+                    <ComboBox ItemsSource="{Binding SurahList}"
           DisplayMemberPath="Display"
           SelectedValuePath="Number"
           SelectedValue="{Binding SelectedSurah}"
-          Height="30"
-          Margin="0,0,0,18"/>
+          Height="32"
+          FontSize="14"
+          IsEditable="True"
+          IsTextSearchEnabled="True"
+          StaysOpenOnEdit="True"
+          Margin="0,0,0,10"/>
 
-                <TextBlock Text="Tip: Select a Surah. Scroll on the right." Opacity="0.7" TextWrapping="Wrap"/>
-            </StackPanel>
+                    <TextBlock Text="Tip: Select a Surah. Scroll on the right."
+                       Opacity="0.7"
+                       TextWrapping="Wrap"
+                       Margin="0,0,0,10"/>
+
+                </StackPanel>
+
+                <Border Height="1"
+        Background="#E6E6E6"
+        Margin="0,10,0,6"/>
+
+                <!-- BOTTOM: Pages menu (scrollable) -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+
+                        <!-- These are the LEFT NAV pages from your earlier screenshot -->
+                        <Button Style="{StaticResource LeftNavButton}" Content="Introduction to the Qur'an Viewer"
+                Margin="0,8,0,0" Height="38"
+                Command="{Binding OpenPageWindowCommand}"
+                CommandParameter="intro"/>
+
+                        <Button Style="{StaticResource LeftNavButton}" Content="Software Features, Versioning"
+                Margin="0,8,0,0" Height="38"
+                Command="{Binding OpenPageWindowCommand}"
+                CommandParameter="features"/>
+
+                        <Expander Header="About" Margin="0,8,0,0" IsExpanded="True">
+                            <StackPanel Margin="10,6,0,0">
+
+                                <Button Style="{StaticResource LeftNavSubButton}" Content="The Developer, Ashary Tamano"
+                        Margin="0,6,0,0" Height="36"
+                        Command="{Binding OpenPageWindowCommand}"
+                        CommandParameter="about_developer"/>
+
+                                <Button Style="{StaticResource LeftNavSubButton}" Content="The Compiler, Abdulbasit Tamano"
+                        Margin="0,6,0,0" Height="36"
+                        Command="{Binding OpenPageWindowCommand}"
+                        CommandParameter="about_compiler"/>
+
+                                <Button Style="{StaticResource LeftNavSubButton}" Content="Visit maranaw.com"
+                        Margin="0,6,0,0" Height="36"
+                        Command="{Binding OpenLinkCommand}"
+                        CommandParameter="https://maranaw.com"/>
+
+                            </StackPanel>
+                        </Expander>
+
+                        <Button Style="{StaticResource LeftNavButton}" Content="Translation and Tafsir Explained"
+                Margin="0,8,0,0" Height="38"
+                Command="{Binding OpenPageWindowCommand}"
+                CommandParameter="tafsir_explained"/>
+
+                        <Button Style="{StaticResource LeftNavButton}" Content="Copyright and Distribution"
+                Margin="0,8,0,0" Height="38"
+                Command="{Binding OpenPageWindowCommand}"
+                CommandParameter="copyright"/>
+
+                        <Button Style="{StaticResource LeftNavButton}" Content="Compilation of the Holy Qur'an"
+                Margin="0,8,0,0" Height="38"
+                Command="{Binding OpenPageWindowCommand}"
+                CommandParameter="compilation"/>
+
+                        <Button Style="{StaticResource LeftNavButton}" Content="Memorizing the Holy Qur'an"
+                Margin="0,8,0,0" Height="38"
+                Command="{Binding OpenPageWindowCommand}"
+                CommandParameter="memorizing"/>
+
+                        <Button Style="{StaticResource LeftNavButton}" Content="Bookmarks"
+                Margin="0,12,0,0" Height="38"
+                Command="{Binding OpenPageWindowCommand}"
+                CommandParameter="bookmarks"/>
+
+                        <Button Style="{StaticResource LeftNavButton}" Content="Search"
+                Margin="0,8,0,0" Height="38"
+                Command="{Binding OpenPageWindowCommand}"
+                CommandParameter="search"/>
+
+                        <Button Style="{StaticResource LeftNavButton}" Content="Exit"
+                Margin="0,12,0,0" Height="38"
+                Command="{Binding ExitCommand}"/>
+
+                        <!-- small bottom breathing space -->
+                        <Border Height="12" Opacity="0"/>
+
+                    </StackPanel>
+                </ScrollViewer>
+
+
+            </Grid>
         </Border>
 
         <!-- RIGHT READER -->
@@ -143,15 +269,31 @@
                                     <Border Grid.Row="1"
         HorizontalAlignment="Stretch">
                                         <TextBlock Text="{Binding Data.QuranText}"
-               Language="ar-SA"
-               FontFamily="pack://application:,,,/Assets/Fonts/#Amiri"
-               FontSize="28"
-               TextWrapping="Wrap"
-               FlowDirection="RightToLeft"
-               TextAlignment="Right"
-               HorizontalAlignment="Right"
-               MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
-               Margin="0,0,0,8"/>
+           Language="ar-SA"
+           FontFamily="pack://application:,,,/Assets/Fonts/#Amiri"
+           FontSize="28"
+           TextWrapping="Wrap"
+           FlowDirection="RightToLeft"
+           MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
+           Margin="0,0,0,8">
+
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <!-- Default for normal ayahs: keep your original look -->
+                                                    <Setter Property="TextAlignment" Value="Right"/>
+                                                    <Setter Property="HorizontalAlignment" Value="Right"/>
+
+                                                    <Style.Triggers>
+                                                        <!-- Ayah 0 (Bismillah): center -->
+                                                        <DataTrigger Binding="{Binding Data.Ayah}" Value="0">
+                                                            <Setter Property="TextAlignment" Value="Center"/>
+                                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+
                                     </Border>
 
                                     <!-- Maranao translation -->
@@ -166,13 +308,16 @@
 
                                     <!-- Tafsir toggle -->
                                     <Button Grid.Row="3"
-            Margin="0,10,0,0"
-            Width="90"
-            HorizontalAlignment="Left"
-			FlowDirection="LeftToRight"
-            Content="{Binding TafsirButtonText}"
-            Command="{Binding DataContext.ToggleTafsirCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-            CommandParameter="{Binding}" />
+        Margin="0,10,0,0"
+        Width="90"
+        HorizontalAlignment="Left"
+        FlowDirection="LeftToRight"
+        Content="{Binding TafsirButtonText}"
+        Visibility="{Binding IsShowToggleVisible,
+                             Converter={StaticResource BoolToVisibilityConverter}}"
+        Command="{Binding DataContext.ToggleTafsirCommand,
+                          RelativeSource={RelativeSource AncestorType=Window}}"
+        CommandParameter="{Binding}" />
 
                                     <!-- Tafsir panel -->
                                     <Border Grid.Row="4"

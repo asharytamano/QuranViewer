@@ -1,21 +1,57 @@
 ﻿using QuranViewer.Helpers;
 using QuranViewer.Models;
-using QuranViewer.ViewModels;
 using QuranViewer.Services;
+using QuranViewer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 
 namespace QuranViewer.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        public ICommand OpenPageWindowCommand => new RelayCommand<string>(key =>
+        {
+            var w = new InfoWindow(key);
+            w.Owner = Application.Current.MainWindow;
+            w.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            w.Show();
+        });
+
+        public ICommand OpenLinkCommand => new RelayCommand<string>(url =>
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+            catch { }
+        });
+
+        public ICommand ExitCommand => new RelayCommand<object>(_ =>
+        {
+            Application.Current.Shutdown();
+        });
+
+
         public ObservableCollection<AyahViewModel> AllAyat { get; } = new();
         public ObservableCollection<AyahViewModel> FilteredAyat { get; } = new();
+
+        public int VerseCountDisplay
+        {
+            get
+            {
+                if (FilteredAyat == null)
+                    return 0;
+
+                return FilteredAyat.Count(a => a.AyahNumber > 0);
+            }
+        }
 
         public ObservableCollection<SurahItem> SurahList { get; } = new();
 
@@ -125,11 +161,17 @@ namespace QuranViewer.ViewModels
         {
             get
             {
-                int verseCount = AllAyat.Count(a => a.Data.Surah == SelectedSurah);
+                // Count only real verses (exclude Ayah 0 / Bismillah)
+                int verseCount = AllAyat.Count(a =>
+                    a.Data.Surah == SelectedSurah &&
+                    a.Data.Ayah > 0);
 
                 // Prefer meta dictionary
-                if (SelectedSurahMeta != null && !string.IsNullOrWhiteSpace(SelectedSurahMeta.RevelationPlace))
+                if (SelectedSurahMeta != null &&
+                    !string.IsNullOrWhiteSpace(SelectedSurahMeta.RevelationPlace))
+                {
                     return $"{verseCount} verses, Revealed at {SelectedSurahMeta.RevelationPlace}";
+                }
 
                 // Fallback if meta missing
                 return $"{verseCount} verses";
