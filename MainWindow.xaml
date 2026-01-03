@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="QuranViewer"
         Height="700"
-        Width="1000"
+        Width="1100"
         WindowStartupLocation="CenterScreen">
 
 
@@ -18,11 +18,53 @@
             <Setter Property="Padding" Value="12,8"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Background" Value="#1F5A52"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#1F5A52"/>
             <Setter Property="BorderBrush" Value="#184842"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter Margin="{TemplateBinding Padding}"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <!-- Hover -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#2B7A6D"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#2B7A6D"/>
+                            </Trigger>
+
+                            <!-- Pressed -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#15433C"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#15433C"/>
+                            </Trigger>
+
+                            <!-- Disabled -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.45"/>
+                            </Trigger>
+
+                            <!-- Focused (keyboard tab) -->
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#6ED6C7"/>
+                                <Setter TargetName="Bd" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style x:Key="LeftNavSubButton" TargetType="Button" BasedOn="{StaticResource LeftNavButton}">
@@ -30,11 +72,9 @@
             <Setter Property="Margin" Value="0,6,0,0"/>
             <Setter Property="Padding" Value="18,7"/>
             <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Background" Value="#194B45"/>
-        </Style>
-
-        <Style TargetType="Expander">
-            <Setter Property="Margin" Value="0,8,0,0"/>
+            <Setter Property="BorderBrush" Value="#153F3A"/>
         </Style>
 
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
@@ -98,7 +138,8 @@
                     <StackPanel>
 
                         <!-- These are the LEFT NAV pages from your earlier screenshot -->
-                        <Button Style="{StaticResource LeftNavButton}" Content="Introduction to the Qur'an Viewer"
+                        <Button Style="{StaticResource LeftNavButton}" 
+						Content="Introduction to the Qur'an Viewer"
                 Margin="0,8,0,0" Height="38"
                 Command="{Binding OpenPageWindowCommand}"
                 CommandParameter="intro"/>
@@ -273,8 +314,9 @@
            FontFamily="pack://application:,,,/Assets/Fonts/#Amiri"
            FontSize="28"
            TextWrapping="Wrap"
-           FlowDirection="RightToLeft"
-           MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
+           FlowDirection="LeftToRight"
+		   TextAlignment="Right"
+		   HorizontalAlignment="Right"
            Margin="0,0,0,8">
 
                                             <TextBlock.Style>

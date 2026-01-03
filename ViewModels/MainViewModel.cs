@@ -117,7 +117,7 @@ namespace QuranViewer.ViewModels
 
         public RelayCommand<AyahViewModel> ToggleTafsirCommand { get; }
 
-        public MainViewModel()
+           public MainViewModel()
         {
             ToggleTafsirCommand = new RelayCommand<AyahViewModel>(ToggleTafsir);
 
