@@ -21,7 +21,7 @@ namespace QuranViewer.ViewModels
             var w = new InfoWindow(key);
             w.Owner = Application.Current.MainWindow;
             w.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            w.Show();
+            w.ShowDialog();
         });
 
         public ICommand OpenLinkCommand => new RelayCommand<string>(url =>
@@ -117,7 +117,7 @@ namespace QuranViewer.ViewModels
 
         public RelayCommand<AyahViewModel> ToggleTafsirCommand { get; }
 
-           public MainViewModel()
+        public MainViewModel()
         {
             ToggleTafsirCommand = new RelayCommand<AyahViewModel>(ToggleTafsir);
 
@@ -156,7 +156,6 @@ namespace QuranViewer.ViewModels
                 return $"{s.Number:D3} {s.NameEn}";
             }
         }
-
         public string SelectedSurahSubtitle
         {
             get

@@ -5,6 +5,39 @@
              StartupUri="MainWindow.xaml">
 
     <Application.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+        <!-- Dialog container style -->
+        <Style x:Key="DialogCard" TargetType="Border">
+            <Setter Property="CornerRadius" Value="14"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#2A000000"/>
+            <Setter Property="Background" Value="#FF1E1E1E"/>
+            <Setter Property="Padding" Value="22"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+        </Style>
+
+        <!-- Title text -->
+        <Style x:Key="DialogTitleText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <!-- Body text -->
+        <Style x:Key="DialogBodyText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="Foreground" Value="#EDEDED"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="LineHeight" Value="20"/>
+        </Style>
+
+        <!-- Accent separator -->
+        <Style x:Key="DialogSeparator" TargetType="Separator">
+            <Setter Property="Margin" Value="0,10,0,14"/>
+            <Setter Property="Background" Value="#3FFFFFFF"/>
+        </Style>
+
     </Application.Resources>
+
 </Application>

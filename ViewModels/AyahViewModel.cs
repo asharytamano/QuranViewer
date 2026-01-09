@@ -47,7 +47,7 @@ namespace QuranViewer.ViewModels
             }
         }
 
-        public string TafsirButtonText => IsTafsirVisible ? "Hide" : "Show";
+        public string TafsirButtonText => IsTafsirVisible ? "Hide Tafsir" : "Show Tafsir";
 
         public AyahViewModel(QuranAyah data) => Data = data;
 

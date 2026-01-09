@@ -122,6 +122,17 @@
           StaysOpenOnEdit="True"
           Margin="0,0,0,10"/>
 
+                    <!--		  <TextBlock Text="Ayah Jump"
+           FontWeight="SemiBold"
+           FontSize="16"
+           Margin="0,0,0,6"/>
+
+<ComboBox ItemsSource="{Binding AyahJumpList}"
+          SelectedItem="{Binding SelectedAyahJump}"
+          Height="30"
+          FontSize="14"
+          Margin="0,0,0,12"/> -->
+
                     <TextBlock Text="Tip: Select a Surah. Scroll on the right."
                        Opacity="0.7"
                        TextWrapping="Wrap"
@@ -199,6 +210,13 @@
                 Margin="0,8,0,0" Height="38"
                 Command="{Binding OpenPageWindowCommand}"
                 CommandParameter="search"/>
+
+                        <Button Style="{StaticResource LeftNavButton}"
+        Content="Help"
+        Command="{Binding OpenPageWindowCommand}"
+        CommandParameter="help"
+        Margin="0,8,0,0"
+        Height="38"/>
 
                         <Button Style="{StaticResource LeftNavButton}" Content="Exit"
                 Margin="0,12,0,0" Height="38"
@@ -368,9 +386,26 @@
             BorderBrush="#F0F0F0"
             BorderThickness="1"
             Visibility="{Binding IsTafsirVisible, Converter={StaticResource BoolToVisibilityConverter}}">
-                                        <TextBlock Text="{Binding Data.TafsirTextOriginal}"
-                   TextWrapping="Wrap"
-                   FontSize="14"/>
+
+                                        <Border Background="#1F5A52"
+        Padding="12,8"
+        Margin="0,8,0,0"
+        CornerRadius="4">
+                                            <StackPanel>
+                                                <TextBlock Text="TAFSIR"
+                   FontSize="12"
+                   FontWeight="SemiBold"
+                   Foreground="#D8EDE9"
+                   Margin="0,0,0,4"/>
+
+                                                <TextBlock Text="{Binding Data.TafsirTextOriginal}"
+                   FontSize="15"
+                   Foreground="White"
+                   LineHeight="24"
+                   TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                        </Border>
+
                                     </Border>
                                 </Grid>
 
